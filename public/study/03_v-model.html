@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- 
+            v-on:속성의 축약어는 @속성 
+            즉, @keyup="함수명" 은 keyup 이벤트 발생시, 함수를 실행다는 의미
+            v-model로 양방향 바인딩을 즉시 구현 가능하나, 한글 미지원으로,, 한글은 old방식을 사용해야함
+        -->        
+        <!-- old방식
+            <input type="text" :value="write" @keyup="textModifier"/> <br>
+            {{write}} <br><br> 
+        -->
+        <input type="text" v-model="write"/> <br>
+        {{write}}
+    </div>
+    
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                write: "type area"
+            },
+            methods: {
+                textModifier(event) {
+                    this.write = event.target.value;
+                }
+            }
+        })
+    </script>
+
+    <div id="app2">   
+        <br>
+        {{message}} <br>    
+        {{changeMessage}} <br>
+        {{reverseMessage}} <br>
+        <button @click="changeMessage">왔는가</button>
+    </div>
+
+    <script>
+        /**
+         * computed 속성은 실제 HTML의 DOM 구조가 생성되기 전에 computed 객체 내부에 있는 값들을 계산하여 캐싱(저장)해놓고, 내부의 data값이 변경되면 추적하여 다시 계산해준다
+         * 문법상 한가지 주의할 점은 computed 부분의 메서드(reverseMessage())를 직접 호출할 때는 실행문( {{reverseMessage() }} )이 아니라 함수명만 작성 ( {{ reverseMessage }} ) 해야된다는 점이다!
+         */
+        new Vue({
+            el: "#app2",
+            data: {
+                message: "Hello"
+            },
+            methods: {
+                changeMessage() {
+                    this.message = "Bye~~"
+                }
+            },
+            computed: {
+                reverseMessage() {
+                    return this.message.split("").reverse().join("");
+                }
+            }
+        })
+    </script>
+
+    <div id="app3">    
+        {{message1}} <br>
+        <button @click="changeMessage">왔는가</button><br>
+        {{guide}} <br>
+    </div>
+
+    <script>
+        /**
+         * Computed: 선언형 프로그래밍 방식은 목표로 하는 데이터를 지정해놓고, 그것을 이루는 데이터(변수)가 바뀌면 자동으로 추적해주는 방식인데 비하여, 
+         * Watch: 표현형 프로그래밍 방식은 추적할 데이터(변수)를 하나씩 설정하기 때문에 코드가 길어질 수 있다고 표현
+         * 내 생각에는 watch의 경우 newValue와 oldValue를 둘 다 추적하는 파라미터가 있어서 개별 데이터의 변경 전과 변경 후를 추적해야되는 상황에서는 watch가 좋을수도 있을 것 같다. 
+         * Watch는 watch에 변수만 매핑해서 넣어주면, 해당 변수에 변경이 생길때마다 자동 호출되는게, Computed와의 차이점이다!!
+         */
+        new Vue({
+            el: "#app3",
+            data: {
+                message1: "Hello",
+                guide: ""
+            },
+            methods: {
+                changeMessage() {
+                    this.message1 = "Bye~~";
+                }
+            },
+            watch: {
+                message1(newVal, oldVal) {
+                    this.guide = oldVal+ " --- "+ newVal;
+                }
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        {{auxiliaryMethod()}}
+        <br/>
+        {{person.name}}
+        <br/>
+        <!-- 
+            v-bind:속성의 축약어는 :속성 
+            즉, :type="" 은 type속성은 이제 vue바인딩을 사용한다는 의미
+
+            submit 클릭시에, submit form 내부가 디폴트로 새로고침을 수행함 -> 보통은 이런경우, 이벤트값 e를 받아와서, e.preventDefault()로 처리하여 기본적인 동작을 막아줌으로써 해결
+            v-on 이벤트는 이벤트 수식어를 제공 : .stop .prevent .capture .self .once .passive        
+        -->
+        <form v-on:submit = "confirmSubmit">
+            <input :type="typeOfInput" :value="initialValue">
+            <button type="submit">Submit</button>
+        </form>
+        <a :href="link">홈페이지</a>
+    </div>
+
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                person: {
+                    name: "thkim",
+                    age: 22
+                },
+                typeOfInput: "text",
+                initialValue: "hello",
+                link: "https://naver.com"
+            },
+            methods: {
+                thisYear: function(greeting) {
+                    return `${greeting}! ${this.person.name}는 올해 ${this.person.age} 살 입니다.`;
+                },
+                // thisYear: function() {} 의 축약형 --> 바로 thisYear() {}
+                auxiliaryMethod() {
+                    return this.thisYear("Hello");
+                },
+                confirmSubmit() {
+                    alert("제출되었습니다.");
+                }
+            }
+        });
+    </script>
+
+    <div id="app2">
+        {{year}} <br>
+        <button v-on:click="plus">plus</button>
+        <button v-on:click="minus">minus</button>
+    </div>
+
+    <script>
+        new Vue({
+            el: "#app2",
+            data: {
+                year: "2021"
+            },
+            methods: {
+                plus() {this.year++; },
+                minus() {this.year--; }
+            }
+        })
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        .red {
+            color: red;
+        }
+        .font-size {
+            font-size: 50px;
+        }
+    </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+
+    <div id = "app">
+        <!-- 
+            red와 font-size 클래스를 적용하는데, true/false로 적용 여부를 선택 
+            changeClass를 클릭하면, isRed/isBig의 true/false가 토글형태로 바뀌게 됨
+        -->
+        <div :class="{red: isRed, 'font-size': isBig}">변경될 텍스트 1</div>
+        <div :class="[isRed ? 'red' : '', isBig ? 'font-size' : '']">변경될 텍스트 2</div>
+        <div :style="{color : newColor, 'font-size':newSize}">변경될 텍스트 3</div>
+        <button @click="changeClass">button</button>
+    </div>
+
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                isRed: false,
+                isBig: false,
+                newColor: "green",
+                newSize: "30px"
+            },
+            methods: {
+                changeClass() {
+                    this.isRed = !this.isRed;
+                    this.isBig = !this.isBig;
+                }
+            }
+        });
+    </script>
+
+    <div id = "app2">
+        <!-- 
+            v-if와 v-show는 조건에 따라 다른 요소들이 렌더링 되면서 조건별 렌더링이 되도록 한다.
+            - v-if는 조건문 기반으로, 조건이 성립되지 않는 상태라면 아예 렌더링 자체를 안한다. 
+            - 하지만 v-show는 CSS 기반의 display:none; 을 이용한 토글링으로, 렌더링은 항상 되어있는 상태이다. 
+            따라서 자주 바꿔야하는 요소에 적용한다면 v-show를 이용하고, 자주 바뀌지 않는다면 v-if를 이용하는 것이 좋다.
+        -->
+        <div v-show="show === 0">v-show에 의한 표현</div>
+        <div v-if="show < 2">show가 2보다 작다</div>
+        <div v-if="show === 2">show가 2와 같다</div>
+        <div v-if="show > 3">show가 3보다 크다</div>
+        <button @click="increaseNumber()">Increase</button> <br>
+        {{show}}
+    </div>
+
+    <script>
+        new Vue({
+            el: "#app2",
+            data: {
+                show: 0
+            },
+            methods: {
+                increaseNumber() {
+                    this.show++;
+                }
+            }
+        })
+    </script>
+
+    <div id="app3">
+        <div v-for="person in people">{{person.name}}씨는 {{person.age}} 살 입니다.</div>
+        <div v-for="(person, index) in people">{{index}} 번째, {{person.name}}씨는 {{person.age}} 살 입니다.</div>
+        <div v-for="(person, index) in people" :key="person.id + '-' + person.name">{{index}} 번째, {{person.name}}씨는 {{person.age}} 살 입니다.</div>
+
+    </div>
+
+    <script>
+        new Vue({
+            el: "#app3",
+            data: {
+                people: [
+                    {id: 1, name: "aaa", age: 20},
+                    {id: 2, name: "bbb", age: 30},
+                    {id: 3, name: "ccc", age: 40},
+                    {id: 4, name: "ddd", age: 50}
+                ]
+            }
+        })
+    </script>
+    
+    <div id = "app4">
+        <!-- 
+            Index와 Key/Value 매핑
+        -->
+        <div v-for="(value, key, index) in book">{{index}}, {{key}}, {{value}}</div>
+    </div>
+    <script>
+        new Vue({
+            el: '#app4',
+            data : {
+                book : {
+                    title : "Harry Potter",
+                    author : "J. K. Rowling",
+                    publishedAt : "26 June 1997"
+                }
+            }
+        })
+    </script>
+</body>
+</html>
