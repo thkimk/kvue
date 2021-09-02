@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app1">
+        {{name}} <br>
+        <button @click="changeName()">change</button>
+    </div>
+
+    <div id="app2">
+        {{name}} <br>
+        <button @click="changeName()">change</button>
+    </div>
+
+    <script>
+        const app1 = new Vue({
+            el: '#app1',
+            data: {
+                name: 'charlie1'
+            },
+            methods: {
+                changeName() {
+                    app2.name = this.name + ' changed';
+                }
+            }
+        });
+
+        const app2 = new Vue({
+            el: '#app2',
+            data: {
+                name: 'charlie2'
+            },
+            methods: {
+                changeName() {
+                    this.name = this.name + ' changed';
+                }
+            }
+        });
+    </script>
+
+
+    <div id="app3">
+        <br>
+        {{name}} <br>
+        <compo></compo>
+    </div>
+    <hr>
+    <script>
+        const compo = Vue.component('compo', {
+            template:
+                `
+                <div>
+                {{name}} <br>
+                <button @click="changeName"> change </button>
+                </div>`
+            ,
+            data() {
+                return {
+                    name : "charlie_Combo"
+                }
+            },
+            methods: {
+                changeName() {
+                    this.name = this.name + " changed";
+                }
+            }
+        });
+
+        const app3 = new Vue({
+            el: '#app3',
+            data: {
+                name: "charlie"
+            }
+        })
+    </script>
+</body>
+</html>

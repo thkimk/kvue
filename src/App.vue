@@ -5,18 +5,29 @@
     <span class="inject-text">provide :
       <span class="inject-value">'inject props'</span>
     </span>
+    
+    <Header></Header>
 
-    <first name="first"/>
+    <h3>안녕하세요</h3>
+    <router-link to="/">[Home]</router-link>
+    <router-link to="/about">[About]</router-link>
+    <router-view></router-view>
+    
+    <!-- <first name="first"/> -->
   </div>
 </template>
 
 <script>
-import First from '@/components/First'
+/**
+ * '@/components/First' 에서, @는 src폴더를 의미
+ */
+// import First from '@/components/First'
+import Header from '@/components/layout/Header.vue'
 
 export default {
   name: 'App',
   components: {
-    First
+    Header
   },
   provide () {
     return {
