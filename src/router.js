@@ -10,7 +10,7 @@ import About from "./views/About"
  */
 
 // VueRouter 사용 선언
-Vue.use(VueRouter)
+Vue.use(VueRouter);
  
 /**
  * VueRouter 인스턴스 생성하면서, mode와 routes 속성을 설정
@@ -26,6 +26,6 @@ const router = new VueRouter({
         {path: "/about", name: "about", component: About}
         // {path: "/about", name: "about", component: () => import('./views/About.vue')}   // lazy load 개념 (미리 로드하지않고, 요청이 있을때 불러옴)
     ]
-})
+});
  
-export default router
+export default router;
