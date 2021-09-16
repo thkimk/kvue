@@ -28,7 +28,7 @@
 import Header2 from '@/components/layout/Header2.vue'
 
 export default {
-  name: 'App',
+  name: 'App1',
   components: {
     Header2
   },
